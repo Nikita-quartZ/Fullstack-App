@@ -56,7 +56,7 @@ app.delete(`${MainPath}/products`, async (req, res) => {
     ...db
   }
   const products = db.products
-  const newProducts = products.filter((item) => item.id !== Number(req.query.id))
+  const newProducts = products.filter((item) => String(item.id) !== String(req.query.id))
 
   const newData = {
     ...oldInfo,

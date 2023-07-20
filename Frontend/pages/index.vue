@@ -26,11 +26,13 @@
     </div>
 
     <div v-if="store.products" class="grid grid-cols-5 gap-4">
-      <Card
-        v-for="product in filteredProducts"
-        :key="product.id"
-        :product="product"
-      />
+      
+        <Card
+          v-for="product in filteredProducts"
+          :key="product.id"
+          :product="product"
+        />
+
     </div>
   </div>
 </template>

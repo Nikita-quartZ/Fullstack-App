@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto pt-10">
     <div class="flex justify-center text-5xl mb-8">
-      <h2>Create Product</h2>
+      <h2>Change Product</h2>
     </div>
     <div class="product__block">
       <p class="product__title">
@@ -87,14 +87,18 @@
     <div class="flex justify-end" v-if="validateFields">
       <p class="error">Fill in all the fields</p>
     </div>
-    <div class="flex justify-end">
+    <div class="flex justify-end mb-10">
       <NuxtLink to="/" class="btn-close">
         Close
       </NuxtLink>
-      <button :disabled="validateFields" class="btn-save" @click="createProduct">
+      <button class="btn-close" @click="DeleteProduct">
+        Delete
+      </button>
+      <button :disabled="validateFields" class="btn-save" @click="saveProduct">
         Save
       </button>
     </div>
+    {{ data.images }}
   </div>
 </template>
 
@@ -102,7 +106,17 @@
 import { useStore } from '@/store/index'
 const store = useStore()
 const router = useRouter()
+const route = useRoute()
 
+store.getProductList().then(() => {
+  data.value = store.products.find(product => product.id == route.query.id)
+  images.value = store.products.find(product => product.id == route.query.id).images
+    .map(item => {
+      return {
+        value: item
+      }
+    })
+})
 
 const images = ref([
   {
@@ -126,6 +140,13 @@ const data = ref(
   },
 )
 
+async function DeleteProduct() {
+  await store.deleteProduct(data.value.id)
+  setTimeout(() => {
+    router.push({ path: "/" })
+  }, 1500)
+}
+
 function addImage() {
   images.value.push({value: ''})
 }
@@ -145,9 +166,9 @@ function allInfo() {
   })
 }
 
-async function createProduct() {
+async function saveProduct() {
   allInfo()
-  await store.postProduct(data.value)
+  await store.putProduct(data.value)
   router.push({ path: "/" })
 }
 
