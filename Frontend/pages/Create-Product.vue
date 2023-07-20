@@ -91,7 +91,7 @@
       <NuxtLink to="/" class="btn-close">
         Close
       </NuxtLink>
-      <button class="btn-save" @click="createProduct">
+      <button :disabled="validateFields" class="btn-save" @click="createProduct">
         Save
       </button>
     </div>
@@ -101,7 +101,7 @@
 <script setup>
 import { useStore } from '@/store/index'
 const store = useStore()
-const route = useRoute()
+const router = useRouter()
 
 
 const images = ref([
@@ -148,11 +148,12 @@ function allInfo() {
 async function createProduct() {
   allInfo()
   await store.postProduct(data.value)
+  CloseWindow()
 }
 
-// function CloseWindow() {
-//   return
-// }
+function CloseWindow() {
+  router.push({ path: "/" })
+}
 
 </script>
 
