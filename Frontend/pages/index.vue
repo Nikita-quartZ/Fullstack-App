@@ -86,7 +86,7 @@ const filteredProducts = computed(() => {
 
   if (filters.value[2].value !== 0 ) {
     if (filters.value[2].value !== '') {
-      newProducts = newProducts.filter((item) => item.price === filters.value[2].value)
+      newProducts = newProducts.filter((item) => Number(item.price) === Number(filters.value[2].value))
     }
   }
   if (filters.value[3].value !== 0 ) {

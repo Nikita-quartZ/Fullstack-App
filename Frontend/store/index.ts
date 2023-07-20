@@ -14,7 +14,6 @@ export const useStore = defineStore('storeId', {
   actions: {
     async getProductList() {
       const data = await axios.get(`${Api}/products`)
-      console.log(data.data.products)
       this.products = data.data.products
       this.limit = data.data.limit
       this.skip = data.data.skip

@@ -98,7 +98,6 @@
         Save
       </button>
     </div>
-    {{ data.images }}
   </div>
 </template>
 

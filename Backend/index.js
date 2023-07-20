@@ -69,7 +69,7 @@ app.delete(`${MainPath}/products`, async (req, res) => {
   res.json(newData)
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
   console.log(`listening on port http://localhost:${port}`);
